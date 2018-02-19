@@ -1,5 +1,5 @@
 const requireds = ["firstname", "lastname", "email", "street", "zip", "city"];
-let inputs = Array.from(document.getElementsByTagName("input"));
+var inputs = Array.from(document.getElementsByTagName("input"));
 
 
 document.getElementById("checkoutForm").addEventListener("submit", function(e){
