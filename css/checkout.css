@@ -1,0 +1,8 @@
+.invalid {
+    border: 2px solid red;
+}
+
+.checkout {
+    display: flex;
+    flex-direction: column;
+}
