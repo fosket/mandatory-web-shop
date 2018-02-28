@@ -1,12 +1,12 @@
 const requireds = ["firstname", "lastname", "email", "street", "zip", "city"];
-var inputs = Array.from(document.getElementsByTagName("input"));
+let inputs = Array.from(document.getElementsByTagName("input"));
 
 
 document.getElementById("checkoutForm").addEventListener("submit", function(e){
     e.preventDefault();
     console.log(validate());
     if (!validate()) {
-        inputs.filter(x => requireds.indexOf(x.name) >= 0 ? true : false)
+        inputs.filter(x => requireds.indexOf(x.name) >= 0)
             .forEach(x => inputValidation(x));
     } else {
         // submit
@@ -26,7 +26,7 @@ function inputValidation(field) {
 }
 
 function validate() {
-    return inputs.filter(x => requireds.indexOf(x.name) >= 0 ? true : false )
+    return inputs.filter(x => requireds.indexOf(x.name) >= 0 )
     // .forEach(x => inputValidation(x))
         .every(x => inputValidation(x));
 }

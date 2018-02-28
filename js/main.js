@@ -2,7 +2,7 @@
 
 
 /* Array of products */
-var products = [
+let products = [
     { productName: "ADIDAS ORIGINALS ULTRABOOST AT",    price: 240,     color: 'TRIPLE WHITE',      description: "Beskrivning1",    mainImage: "img/asd.jpg" },
     { productName: "ADIDAS ORIGINALS ULTRABOOST LTD",   price: 220,     color: 'BLACK / WHITE',     description: "Beskrivning2",    mainImage: "img/asd.jpg" },
     { productName: "CONVERSE ZIP 70`S LOW",             price: 123,     color: 'PURE PLATINUM',     description: "Beskrivning3",    mainImage: "img/asd.jpg" },
@@ -17,14 +17,12 @@ console.log("Prices:", prices);
 
 
 
-
-
 /*
 *
 * Loopen för produkter
 *
 */
-var i;
+let i;
 for (i = 0; i < products.length; i++) {
 
 
@@ -34,14 +32,14 @@ for (i = 0; i < products.length; i++) {
     * skapar en huvud-div 'product' för varje produkt som finns i arrayen products
     *
     */
-    var mainProduct = document.createElement("div");
+    let mainProduct = document.createElement("div");
     mainProduct.setAttribute("class", "product");
     mainProduct.setAttribute("id", "product" + i);
 
 
 
     /* tryck in product under diven products */
-    var mainElement = document.getElementById("products");
+    let mainElement = document.getElementById("products");
     mainElement.appendChild(mainProduct);
 
 
@@ -56,13 +54,13 @@ for (i = 0; i < products.length; i++) {
     * Här ger vi diven först attribut så som ID och sedan tilldelar vi diven värde hämtat från arrayen products.
     *
     */
-    var productName = document.createElement("div");
+    let productName = document.createElement("div");
     productName.setAttribute("id", "productName" + i);
     productName.setAttribute("class", "productName");
     productName.innerHTML = products[i].productName;
 
     /* tryck in productName under diven 'product' */
-    var subElement = document.getElementById("product" + i);
+    let subElement = document.getElementById("product" + i);
     subElement.appendChild(productName);
 
 
@@ -77,7 +75,7 @@ for (i = 0; i < products.length; i++) {
     * Här ger vi diven först attribut så som ID och sedan tilldelar vi diven värde hämtat från arrayen products.
     *
     */
-    var productPrice = document.createElement("div");
+    let productPrice = document.createElement("div");
     productPrice.setAttribute("id", "productPrice" + i);
     productPrice.setAttribute("class", "productPrice");
     productPrice.innerHTML = products[i].price + ' kr';
@@ -97,7 +95,7 @@ for (i = 0; i < products.length; i++) {
     * Här ger vi diven först attribut så som ID och sedan tilldelar vi diven värde hämtat från arrayen products.
     *
     */
-    var productDescription = document.createElement("div");
+    let productDescription = document.createElement("div");
     productDescription.setAttribute("id", "productDescription" + i);
     productDescription.setAttribute("class", "productDescription");
     productDescription.innerHTML = products[i].description;
@@ -117,7 +115,7 @@ for (i = 0; i < products.length; i++) {
     * Här ger vi diven först attribut så som ID och sedan tilldelar vi diven värde hämtat från arrayen products.
     *
     */
-    var productImage = document.createElement("div");
+    let productImage = document.createElement("div");
     productImage.setAttribute("id", "productImage" + i);
     productImage.setAttribute("class", "productImage");
 
@@ -125,14 +123,13 @@ for (i = 0; i < products.length; i++) {
     subElement.appendChild(productImage);
 
     /* skapa <img> under diven 'productImage' */
-    var productImageSibling = document.createElement("img");
+    let productImageSibling = document.createElement("img");
     productImageSibling.setAttribute("src", products[i].mainImage);
     /* tryck in <img> under diven 'productImage' */
-    var subElementUnderImage = document.getElementById("productImage" + i);
+    let subElementUnderImage = document.getElementById("productImage" + i);
     subElementUnderImage.appendChild(productImageSibling);
 
 }
-
 
 
 
