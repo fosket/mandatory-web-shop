@@ -21,15 +21,26 @@ for (let i = 0; i < products.length; i++) {
 
 
     let html = [
-        "<br /><div class='product row' id='product" + i +"'>",
+        "<br />",
+        "<div class='product row' id='product" + i +"'>",
             "<div class='col-md-6'>",
-                "<div class='productName' id='productName" + i +"'><h4>" + products[i].productName + "</h4></div>",
-                "<div class='productPrice' id='productPrice" + i +"'><h6>" + products[i].price + "kr</h6></div>",
-                "<div class='productDescription' id='productDescription" + i +"'>" + products[i].description + "</div>",
-                "<button class='add-to-cart btn btn-primary' id='" + products[i].id + "'> Köp </button>",
+                "<div class='productName'>",
+                   "<h4>" + products[i].productName + "</h4>",
+                "</div>",
+                "<div class='productPrice'>",
+                    "<h6>" + products[i].price + "kr</h6>",
+                "</div>",
+                "<div class='productDescription'>", 
+                    "<p>" + products[i].description + "</p>",
+                "</div>",
+                "<div class='leaveReview'>",
+                    "<p>Lämna recension</p>",
+                "</div>",
+                "<button class='add-to-cart btn btn-primary'> Köp </button>",
             "</div>",
-            "<div class='productImage col-md-6' id='productImage" + i +"'><img class='img-fluid rounded mb-3 mb-md-0' src='" + products[i].mainImage + "'></div>",
-            "",
+            "<div class='productImage col-md-6'>",
+                "<img class='img-fluid rounded mb-3 mb-md-0' src='" + products[i].mainImage + "'>",
+            "</div>",
         "</div>"
     ].join('');
 
