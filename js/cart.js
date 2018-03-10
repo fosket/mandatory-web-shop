@@ -1,46 +1,93 @@
-let cartList= {};
+const buyButtons = document.getElementsByClassName("add-to-cart");
+const tableBody = document.getElementById ("cart-list");
+const cartNumber = document.getElementById("cartNumber");
+let productAmmount = 0;
 
+// En array som innehåller 6 arrayer kopplat till respektive produkt. Används för att hålla koll på hur många av varje produkt det ligger i varukorgen.
 
+const cartProducts = [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+];
 
-//lägg till i kundvagnen
-function addToCart(){
-    if(this.id in cartList){
-        cartList[this.id] +=1;
-    } else {
-        cartList[this.id] =1;
-    }
-    console.log(cartList);
-    update();
+//Lägger eventlyssnare på köp-knappen, lägger till produkten i varukorgen, uppdaterar varukorgssiffran och skapar/uppdaterar varukorgs tablet.
+
+for (let i = 0; i < buyButtons.length; i++) { 
+    buyButtons[i].addEventListener("click", () =>{       
+        increaseCartNumber();
+        addToCart(i);
+        createCart();
+    });
 }
 
+//Funktion för att undvika redudant kod
+const createCartCount = () => {
+    cartNumber.innerHTML = productAmmount; 
+}
 
+//Ökar siffran vid varukorgen
+const increaseCartNumber = () =>{
+    productAmmount ++;
+    createCartCount(); 
+};
 
-// Update function
-function update(){
-    //Nina-funktion
-    let list = findProduct(cartList, products);
-    document.getElementById("cartHtml").innerHTML = list;
-    updateNumber();
-    Array.from(document.getElementsByClassName("add"))
-        .forEach(item => item.addEventListener("click", function(){
-            console.log(this.parentElement);
-            let id = this.parentElement.getAttribute("data-value");
+//Minskar siffran vid varukorgen
+const decreaseCartNumber = () => {
+    productAmmount --;
+    createCartCount();
+}
 
-            cartList[id] += 1;
+//Kod för att lägga in en produkt i varukorgen från produkt sidan
 
-            update()
-        }));
-    Array.from(document.getElementsByClassName("remove"))
-        .forEach(item => item.addEventListener("click", function(){
-            console.log(this.parentElement);
-            let id = this.parentElement.getAttribute("data-value");
+const addToCart = (productIndex) => {
+    for (let i = 0; i < cartProducts.length; i++) {
+        if (i === productIndex) {
+            cartProducts[i].push(products[productIndex]);
+        }
+    }
+}
 
-            if(cartList[id] > 1){
-                cartList[id] -= 1;
-            } else{
-                delete cartList[id]
-            }
+//kod för att skapa varukorgen som kommer att visas som ett table
 
-            update()
-        }));
+const createCart = () => {
+    let tableBodyContent = "";
+    for (let i = 0; i < cartProducts.length; i++) {
+        if (cartProducts[i].length > 0) {
+            const html = [
+                "<tr>",
+                    "<td>" + cartProducts[i][0].id + "</td>",
+                    "<td>" + cartProducts[i][0].productName + "</td>",
+                    "<td><button class='btn btn-primary' onClick='addProduct(this.id)' id='" + i + "'>Add</button></td>",
+                    "<td>" + cartProducts[i].length + "</td>",
+                    "<td><button class='btn btn-primary' onClick='removeProduct(this.id)' id='" + i + "'>Remove</button></td>",
+                "</tr>"
+            ];
+
+            tableBodyContent += html;
+        }
+    }
+
+    tableBody.innerHTML = tableBodyContent;
+}
+
+//Kod för att lägga en till produkt i varukorgen
+
+const addProduct = (productIndex) => {
+    const newProduct = cartProducts[productIndex][0];
+    cartProducts[productIndex].push(newProduct);
+    increaseCartNumber();
+    createCart();
+
+}
+
+//Kod för att ta bort en produkt från varukorgen 
+
+const removeProduct = (productIndex) => {
+    cartProducts[productIndex].pop();
+    createCart();
+    decreaseCartNumber();
 }
