@@ -1,6 +1,6 @@
-const buyButtons = document.getElementsByClassName("add-to-cart");
-const tableBody = document.getElementById ("cart-list");
-const cartNumber = document.getElementById("cartNumber");
+const buyButtons = $(".add-to-cart");
+const tableBody = $("#cart-list");
+const cartNumber = $("#cartNumber");
 let productAmmount = 0;
 
 // En array som innehåller 6 arrayer kopplat till respektive produkt. Används för att hålla koll på hur många av varje produkt det ligger i varukorgen.
@@ -17,7 +17,7 @@ const cartProducts = [
 //Lägger eventlyssnare på köp-knappen, lägger till produkten i varukorgen, uppdaterar varukorgssiffran och skapar/uppdaterar varukorgs tablet.
 
 for (let i = 0; i < buyButtons.length; i++) { 
-    buyButtons[i].addEventListener("click", () =>{       
+    buyButtons.eq(i).click(event => {    
         increaseCartNumber();
         addToCart(i);
         createCart();
@@ -26,7 +26,7 @@ for (let i = 0; i < buyButtons.length; i++) {
 
 //Funktion för att undvika redudant kod
 const createCartCount = () => {
-    cartNumber.innerHTML = productAmmount; 
+    cartNumber.html(productAmmount); 
 }
 
 //Ökar siffran vid varukorgen
@@ -65,13 +65,13 @@ const createCart = () => {
                     "<td>" + cartProducts[i].length + "</td>",
                     "<td><button class='btn btn-primary' onClick='removeProduct(this.id)' id='" + i + "'>Remove</button></td>",
                 "</tr>"
-            ];
+            ].join('');
 
             tableBodyContent += html;
         }
     }
 
-    tableBody.innerHTML = tableBodyContent;
+    tableBody.html(tableBodyContent);
 }
 
 //Kod för att lägga en till produkt i varukorgen

@@ -1,33 +1,24 @@
-const requireds = ["firstname", "lastname", "email", "street", "zip", "city"];
-var inputs = Array.from(document.getElementsByTagName("input"));
+const required = ["firstname", "lastname", "email", "street", "zip", "city"];
+let inputs = $("input");
 
+$("#checkoutForm").submit(event => {
+    event.preventDefault();
 
-document.getElementById("checkoutForm").addEventListener("submit", function(e){
-    e.preventDefault();
-    console.log(validate());
-    if (!validate()) {
-        inputs.filter(x => requireds.indexOf(x.name) >= 0 ? true : false)
-            .forEach(x => inputValidation(x));
-    } else {
-        // submit
-        console.log("Everything validated!");
+    const validInputs = inputs.filter((index, element) => {
+        return required.includes(element.getAttribute("name"));
+    });
+
+    for(let i = 0; i < validInputs.length; i ++) {
+        inputValidation(validInputs.eq(i));
     }
 });
 
 
-function inputValidation(field) {
-    if (field.value === "") {
-        field.setAttribute("class", "invalid form-control");
-        return false;
+const inputValidation = field => {
+    if (field.val() === "") {
+        field.attr("class", "invalid form-control");
     } else {
-        field.removeAttribute("class", "invalid");
-        field.setAttribute("class", "form-control");
-        return true;
+        field.removeAttr("class", "invalid");
+        field.attr("class", "form-control");
     }
-}
-
-function validate() {
-    return inputs.filter(x => requireds.indexOf(x.name) >= 0 ? true : false )
-    // .forEach(x => inputValidation(x))
-        .every(x => inputValidation(x));
 }

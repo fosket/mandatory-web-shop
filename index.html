@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link href="css/1-col-portfolio.css" rel="stylesheet">
         <link rel="stylesheet" href="css/checkout.css">
+        <link rel="stylesheet" href="css/review.css">
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -38,10 +39,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item" id="menuProducts">
+                        <li class="nav-item" id="productsPage">
                             <a class="nav-link">Products</a>
                         </li>
-                        <li class="nav-item" id="menuContact">
+                        <li class="nav-item" id="checkoutPage">
                             <a class="nav-link">Checkout <span id="cartNumber" class="ion-ios-cart" aria-hidden="true"> 0</span></a>
                         </li>
                     </ul>
@@ -50,11 +51,10 @@
         </nav>
 
         <!-- Products -->
-        <div id="products" class="container" style="display:block">
+        <div id="products" class="container" style="display:block"></div>
 
-        </div>
-
-        <div id="reviewPage"></div>
+		<!-- Review -->
+        <div id="reviewPage" class="container"></div>
 
         <!-- Checkout -->
         <div id="checkout" class="checkout subpage" style="display:none">
@@ -78,62 +78,66 @@
             </div>
 
 
-            <form id="checkoutForm" name="submitForm" class="container">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-6">
+						<form id="checkoutForm" name="submitForm">
 
-                <div class="form-group">
-                    <label>First name*:</label>
-                    <input class="form-control" type="text" name="firstname" placeholder="First Name">
-                </div>
+							<div class="form-group">
+								<label>First name*:</label>
+								<input class="form-control" type="text" name="firstname" placeholder="First Name">
+							</div>
 
-                <div class="form-group">
-                    <label>Last name*:</label>
-                    <input class="form-control" type="text" name="lastname" placeholder="Last Name">
-                </div>
+							<div class="form-group">
+								<label>Last name*:</label>
+								<input class="form-control" type="text" name="lastname" placeholder="Last Name">
+							</div>
 
-                <div class="form-group">
-                    <label>Email*:</label>
-                    <input class="form-control" type="email" name="email" placeholder="email address">
-                </div>
+							<div class="form-group">
+								<label>Email*:</label>
+								<input class="form-control" type="email" name="email" placeholder="email address">
+							</div>
 
-                <div class="form-group">
-                    <label>Phone Number:</label>
-                    <input class="form-control" type="text" name="phonenr" placeholder="phone number">
-                </div>
+							<div class="form-group">
+								<label>Phone Number:</label>
+								<input class="form-control" type="text" name="phonenr" placeholder="phone number">
+							</div>
 
-                <div class="form-group">
-                    <label>Street Address*:</label>
-                    <input class="form-control" type="text" name="street" placeholder="Street Address">
-                </div>
+							<div class="form-group">
+								<label>Street Address*:</label>
+								<input class="form-control" type="text" name="street" placeholder="Street Address">
+							</div>
 
-                <div class="form-group">
-                    <label>Zip code*:</label>
-                    <input class="form-control" type="text" name="zip" placeholder="Zip Code">
-                </div>
+							<div class="form-group">
+								<label>Zip code*:</label>
+								<input class="form-control" type="text" name="zip" placeholder="Zip Code">
+							</div>
 
-                <div class="form-group">
-                    <label>City*:</label>
-                    <input class="form-control" type="text" name="city" placeholder="City">
-                </div>
+							<div class="form-group">
+								<label>City*:</label>
+								<input class="form-control" type="text" name="city" placeholder="City">
+							</div>
 
-                <div class="form-group">
-                    <label>Comments:</label>
-                    <textarea class="form-control" name="" id="" cols="30" rows="10" placeholder="Please leave a comment."></textarea>
-                </div>
+							<div class="form-group">
+								<label>Comments:</label>
+								<textarea class="form-control" name="" id="" cols="30" rows="4" placeholder="Please leave a comment."></textarea>
+							</div>
 
-                <div class="form-group">
-                    <input class="btn btn-primary" type="submit" value="Submit" id="submitbutton">
-                </div>
-
-
-            </form>
+							<div class="form-group">
+								<input class="btn btn-primary" type="submit" value="Submit" id="submitbutton">
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+            
         </div>
 
 
     </body>
 
-
-
-
+<script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/checkout.js"></script>
@@ -142,8 +146,7 @@
 
 
     <!-- BOOTSTRAP -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
 
 
 </html>

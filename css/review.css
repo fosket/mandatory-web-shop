@@ -1,0 +1,15 @@
+.previousReview {
+	background-color: #FFF;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.reviewStar {
+	height: 20px;
+}
+
+#reviewProduct, #reviewForm {
+	background-color: #FFF;
+	padding-top: 20px;
+	padding-bottom: 20px
+}
