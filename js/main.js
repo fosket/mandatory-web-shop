@@ -1,94 +1,53 @@
 
+let products = [];
 
-
-/* Array of products */
-let products = [
-    { 
-		id: 1,    
-		productName: "ADIDAS ORIGINALS ULTRABOOST AT",    
-		price: 240,     
-		color: 'TRIPLE WHITE',      
-		description: "Beskrivning1",    
-		mainImage: "img/asd.jpg"
-	},
-    { 
-		id: 2,    
-		productName: "ADIDAS ORIGINALS ULTRABOOST LTD",   
-		price: 220,     
-		color: 'BLACK / WHITE',     
-		description: "Beskrivning2",    
-		mainImage: "img/asd.jpg",
-	},
-    { 
-		id: 3,    
-		productName: "CONVERSE ZIP 70`S LOW",             
-		price: 123,     
-		color: 'PURE PLATINUM',    
-		description: "Beskrivning3",    
-		mainImage: "img/asd.jpg",
-	},
-    { 
-		id: 4,    
-		productName: "TIMBERLAND 6\" FIELD BOOT WP",      
-		price: 180,     
-		color: 'LIGHT GREY',        
-		description: "Beskrivning4",    
-		mainImage: "img/asd.jpg"
-	},
-    { 
-		id: 5,    
-		productName: "TIMBERLAND 6\" PREMIUM BOOT",       
-		price: 220,     
-		color: 'HORWEEN',           
-		description: "Beskrivning5",    
-		mainImage: "img/asd.jpg"
-	},
-    { 
-		id: 6,    
-		productName: "CONVERSE ZIP 70`S HIGH",            
-		price: 115,     
-		color: 'BLACK / WHITE',     
-		description: "Beskrivning6",   
-		mainImage: "img/asd.jpg"
-	}
-];
-
-/*
-*
-* Loopen för produkter
-*
-*/
-let insideHTML = "";
-
-products.forEach((product, index) => {
-	const html = 
-		"<br />" +
-		"<div class='product row' id='product" + index +"'>" +
-			"<div class='col-md-6'>" +
-				"<div class='productName'>" +
-					"<h4>" + products[index].productName + "</h4>" +
-				"</div>" +
-				"<div class='productPrice'>" +
-					"<h6>" + products[index].price + "kr</h6>" +
-				"</div>" +
-				"<div class='productDescription'>" +
-					"<p>" + products[index].description + "</p>" +
-				"</div>" +
-				"<div class='leaveReview'>" +
-					"<p onClick='initLeaveReview(" + index + ")'>Lämna recension</p>" +
-				"</div>" +
-				"<button class='add-to-cart btn btn-primary'> Köp </button>" +
-			"</div>" +
-			"<div class='productImage col-md-6'>" +
-				"<img class='img-fluid rounded mb-3 mb-md-0' src='" + products[index].mainImage + "'>" +
-			"</div>" +
-		"</div>";
-		insideHTML += html;
+/**
+ * Hämta data för alla produkter
+ */
+$.get("http://demo.edument.se/api/products", (data) => {
+	products = data;
+	createProductsPage();
+	createEmtpyCart();
 });
 
-//Draw the shoppingcart
-let productList = $('#products');
-productList.html(insideHTML);
+
+
+/*
+* Loop för att skapa HTML för alla produkter
+*/
+const createProductsPage = () => {
+	let insideHTML = "";
+
+	products.forEach((product, index) => {
+		const html = 
+			"<br />" +
+			"<div class='product row' id='product" + index +"'>" +
+				"<div class='col-md-6'>" +
+					"<div class='productName'>" +
+						"<h4>" + products[index].Name + "</h4>" +
+					"</div>" +
+					"<div class='productPrice'>" +
+						"<h6>" + products[index].Price + "kr</h6>" +
+					"</div>" +
+					"<div class='productDescription'>" +
+						"<p>" + products[index].Description + "</p>" +
+					"</div>" +
+					"<div class='leaveReview'>" +
+						"<p onClick='initLeaveReview(" + index + ")'>Lämna recension</p>" +
+					"</div>" +
+					"<button onClick='handlePurchase(" + index + ")' class='add-to-cart btn btn-primary'> Köp </button>" +
+				"</div>" +
+				"<div class='productImage col-md-6'>" +
+					"<img class='img-fluid rounded mb-3 mb-md-0' src='" + products[index].Image + "'>" +
+				"</div>" +
+			"</div>";
+			insideHTML += html;
+	});
+
+	let productList = $('#products');
+	productList.html(insideHTML);
+}
+
 
 
 

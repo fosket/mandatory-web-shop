@@ -1,13 +1,5 @@
-const storage = window.localStorage;
+let currentReviews = [];
 let currentProduct;
-let storedReviews = [
-	[],
-	[],
-	[],
-	[],
-	[],
-	[],
-];
 
 /**
  * Starta allting som ska hända när man trycker på en review-länk
@@ -15,20 +7,30 @@ let storedReviews = [
  */
 const initLeaveReview = (index) => {
 	showReviewPage();
-	readFromStorage();
-	createHTML(index);
+	currentProduct = products[index];
+	$.get("http://demo.edument.se/api/reviews", (reviews) => {
+		filterReviews(reviews, index);
+	});
 }
+
+const filterReviews = (reviews, index) => {
+	currentReviews = reviews.filter((review) => {
+		return review.ProductID === currentProduct.Id;
+	});
+	createHTML();
+}
+
+
 
 /**
  * Anropar alla funktioner som kommer att skapa HTML för de olika sektionerna
  * @param {Number} index produktens position i listan
  */
-const createHTML = (index) => {
-	currentProduct = products[index];
+const createHTML = () => {
 	createContainers();
-	createReviewProduct(currentProduct);
-	createReviewForm(index);
-	createPreviousReviews(index);
+	createReviewProduct();
+	createReviewForm();
+	createPreviousReviews();
 }
 
 /**
@@ -56,16 +58,16 @@ const createContainers = () => {
  * Skapar HTML för produkten som visas överst
  * @param {Object} currentProduct produkten som är i fokus
  */
-const createReviewProduct = (currentProduct) => {
+const createReviewProduct = () => {
 	const reviewProduct = $('#reviewProduct');
 	reviewProduct.html(
 		'<div class="col-md-6">' +
-			'<img class="img-fluid" src=' + currentProduct.mainImage + '>' +
+			'<img class="img-fluid" src=' + currentProduct.Image + '>' +
 		'</div>' +
 		'<div class="col-md-6">' +
-			'<p>'+ currentProduct.productName +'</p>' +
-			'<p>'+ currentProduct.description +'</p>' +
-			'<p>'+ currentProduct.price +'</p>' +
+			'<p>'+ currentProduct.Name +'</p>' +
+			'<p>'+ currentProduct.Description +'</p>' +
+			'<p>'+ currentProduct.Price +'</p>' +
 		'</div>'
 	);
 }
@@ -98,7 +100,7 @@ const createReviewForm = (index) => {
 					'<textarea id="reviewMessage" class="form-control" name="review" cols="30" rows="3" placeholder="Lämna gärna en kommentar här.."></textarea>' +
 				'</div>' +
 				'<div class="form-group col-md-12">' +
-					'<input class="btn btn-primary" type="button" value="Skicka" onclick="leaveReview(' + index + ')" id="reviewButton">' +
+					'<input class="btn btn-primary" type="button" value="Skicka" onclick="leaveReview(' + currentProduct.Id + ')" id="reviewButton">' +
 				'</div>' +
 			'</div>' +
 		'</form>'
@@ -114,18 +116,17 @@ const createReviewForm = (index) => {
  */
 const createPreviousReviews = (index) => {
 	const previousReviews = $("#previousReviews");
-	const reviews = storedReviews[index];
 
 	let previousReviewsHTML = '';
 
-	reviews.forEach((review, index) => {
-		const stars = createStars(review.rating);
+	currentReviews.forEach((review, index) => {
+		const stars = createStars(review.Rating);
 		const html = 
 			'<div class="row previousReview border rounded">' +
 				'<div class="col-md-12">' +
 					'<div class="row">' +
 						'<div class="col">' +
-							'<p class="font-weight-light">' + review.name + '</p>' +
+							'<p class="font-weight-light">' + review.Name + '</p>' +
 						'</div>' +
 						'<div class="col-12 col-md-auto">' +
 							'<div class="reviewStars">' +
@@ -136,7 +137,7 @@ const createPreviousReviews = (index) => {
 					'<div class="row">' +
 						'<div class="col">' +
 							'<span>Kommentar: </span>' +
-							'<p class="font-weight-light">' + review.message + '</p>' +
+							'<p class="font-weight-light">' + review.Comment + '</p>' +
 						'</div>' +
 					'</div>' +
 				'</div>' +
@@ -170,35 +171,16 @@ const createStars = (rating) => {
  */
 const leaveReview = (index) => {
 	const currentReview = {
-		name: $('#reviewName').val(),
-		rating: $('#reviewRating').val(),
-		message: $('#reviewMessage').val()
+		Name: $('#reviewName').val(),
+		ProductID: currentProduct.Id,
+		Rating: $('#reviewRating').val(),
+		Comment: $('#reviewMessage').val()
 	}
 
-	storedReviews[index].push(currentReview);
-	writeToStorage();
-	createPreviousReviews(index);
-}
-
-/**
- * Samlingsfunktion för alla anrop när man behöver
- * skriva ner till localstorage;
- */
-const writeToStorage = () => {
-	const storageString = JSON.stringify(storedReviews);
-	storage.setItem('storageReviews', storageString);
-}
-
-/**
- * Samlingsfunktion för alla anrop när man behöver läsa
- * från localstorage. Om strängen som vi får från localstorage
- * är null avbryter vi funktionen med return för att förhindra
- * javascript errors i övriga funktioner.
- */
-const readFromStorage = () => {
-	const storageString = storage.getItem('storageReviews');
-	if (storageString === null) return; 
-	storedReviews = JSON.parse(storageString);
+	$.post("http://demo.edument.se/api/reviews", currentReview, (data, status) => {
+		currentReviews.push(data);
+		createPreviousReviews();
+	});
 }
 
 
